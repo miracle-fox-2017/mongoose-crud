@@ -1,5 +1,7 @@
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/mongoose_crud');
+mongoose.connect('mongodb://localhost:27017/mongoose_crud', {
+  useMongoClient: true
+});
 let Book = require('../models/booksModel.js')
 
 // Insert new document into books library

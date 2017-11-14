@@ -1,5 +1,7 @@
 let mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/mongoose_crud');
+mongoose.connect('mongodb://localhost:27017/mongoose_crud', {
+  useMongoClient: true
+});
 let Customer = require('../models/customersModel.js')
 
 // Insert new document into customers collection
