@@ -66,7 +66,11 @@ let backBooking = (req, res) => {
   .then(transaction => {
     let kembali = new Date().getDate()
     let batasKembali = transaction.due_date.getDate()
-    let fine = (batasKembali - kembali) * 1000;
+    // 17 - 14
+    let fine = 0
+    if(batasKembali < kembali){
+      fine = (batasKembali - kembali) * 1000;
+    }
     transaction.fine = fine,
     transaction.in_date = new Date()
     transaction.save((err, hasilEdit)=>{
