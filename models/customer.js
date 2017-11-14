@@ -2,7 +2,7 @@ const mongoose = require('mongoose').connect('mongodb://localhost:27017/library'
 const Schema = mongoose.Schema;
 
 
-const bookSchema = new Schema({
+const customerSchema = new Schema({
 	name : String,
 	memberid : String,
 	address : String,
@@ -18,6 +18,6 @@ const bookSchema = new Schema({
 	}
 })
 
-const bookModel = mongoose.model('customer',bookSchema);
+const customerModel = mongoose.model('customer',customerSchema);
 
-module.exports = bookModel
+module.exports = customerModel
