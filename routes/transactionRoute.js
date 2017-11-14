@@ -11,6 +11,6 @@ router.post("/transaction",transactionController.add);
 router.post("/transaction/add-booklist",transactionController.addBooklist);
 
 // Delete transaction
-router.delete("/transaction/remove/:id",transactionController.remove);
+// router.delete("/transaction/remove/:id",transactionController.remove);
 
 module.exports=router;

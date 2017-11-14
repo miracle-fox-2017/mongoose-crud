@@ -21,18 +21,18 @@ const add=(req,res,next)=>{
     });
 }
 
-const remove=(req,res,next)=>{
-    const query={
-        "_id":ObjectId(req.params.id)
-    }
-    Transaction.deleteOne(query,(err,respond)=>{
-        if(err){
-            res.send(err);
-        }else{
-            res.send(respond);
-        }
-    });
-}
+// const remove=(req,res,next)=>{
+//     const query={
+//         "_id":ObjectId(req.params.id)
+//     }
+//     Transaction.deleteOne(query,(err,respond)=>{
+//         if(err){
+//             res.send(err);
+//         }else{
+//             res.send(respond);
+//         }
+//     });
+// }
 
 const addBooklist=(req,res,next)=>{
     const query={
