@@ -2,17 +2,21 @@
 const Transaction = require('../models/transactionModel')
 const ObjectID = require('mongodb').ObjectID
 
+//require helper
+const calculateFine = require('../helper/calculateFine');
+
 //create
 let create = (req, res) => {
   let book = req.body.booklist.split(',')
+  let today = new Date()
   
   let transaction = new Transaction({
       member: ObjectID(req.body.member),
       days: req.body.days,
-      out_date: req.body.out_date,
-      due_date: req.body.due_date,
-      in_date: req.body.in_date,
-      fine: req.body.fine,
+      out_date: today,
+      due_date: new Date(today.getTime() + +req.body.days*24*60*60*1000),
+      in_date: null,
+      fine: null,
       booklist: book
   })
   
@@ -38,22 +42,28 @@ let getAll = (req, res) => {
 }
 
 //update
-let update = (req, res) => {
-  let book = req.body.booklist.split(',')
-  
-  let updated = {
-      member: ObjectID(req.body.member),
-      days: req.body.days,
-      out_date: req.body.date,
-      due_date: req.body.due_date,
-      in_date: req.body.in_date,
-      fine: req.body.fine,
-      booklist: book
-  }
-  
-  Transaction.update({ _id: req.params.id }, updated)
-  .then(result=>{
-    res.send(result)
+let update = (req, res) => {  
+  Transaction.findById(req.params.id)
+  .then(trans=>{
+    let today = new Date()
+    let fines = calculateFine(trans.due_date);
+    let updated = {
+        member: ObjectID(trans.member),
+        days: trans.days,
+        out_date: trans.date,
+        due_date: trans.due_date,
+        in_date: today,
+        fine: fines,
+        booklist: trans.booklist
+    }
+    
+    Transaction.update({ _id: req.params.id }, updated)
+    .then(result=>{
+      res.send(result)
+    }).catch(err=>{
+      res.status(500).send(err)
+    })
+    
   }).catch(err=>{
     res.status(500).send(err)
   })
@@ -82,33 +92,10 @@ let getById = (req, res) => {
   })
 }
 
-//add book to transaction
-let addBook = (req, res) => {
-  if(req.params.book_id){
-    Transaction.findById(req.params.id)
-    .then(trans=>{
-      trans.booklist.push(req.params.book_id)
-      Transaction.update({ _id: req.params.id }, trans)
-      .then(result=>{
-        res.send(result)
-      }).catch(err=>{
-        res.status(500).send(err)
-      })
-    }).catch(err=>{
-      res.status(500).send(err)
-    })
-  } else {
-    res.status(400).send({msg: "input error"})
-  }
-  
-
-}
-
 module.exports = {
   getAll,
   create,
-  update,
   deleteTransaction,
-  getById,
-  addBook
+  update,
+  getById
 };

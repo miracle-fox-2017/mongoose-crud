@@ -17,7 +17,6 @@ crud with mongoose odm
 | /api/transactions | POST | post new transaction |
 | /api/transactions/:id | PUT | update specific transaction |
 | /api/transactions/:id | DELETE | delete specific transaction |
-| /api/transactions/:id/book/:book_id | GET | add book to specific transaction id |
 
 
 ## Require parameters
@@ -39,13 +38,23 @@ crud with mongoose odm
 | zipcode | String |
 | phone | String > 6 |
 
-### Transactions
+### Transactions create
 | Require | Type |
 |---------|------|
 | member | ObjectId |
 | days | Number |
-| out_date | Date |
-| due_date | Date |
-| in_date | Date |
-| fine | Number |
+| out_date | Date (auto generate: today) |
+| due_date | Date (auto generate: today + days) |
+| in_date | Date (auto generate: null) |
+| fine | Number (auto generate: null) |
 | booklist | [ObjectId,ObjectId,...] |
+
+### Transactions update
+```
+HTTP PUT /api/transactions/:id
+```
+| Require | Type |
+|---------|------|
+| in_date | Date (auto generate: today) |
+| fine | Number (auto generate: (due_date-in_date)*1000) |
+
