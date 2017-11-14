@@ -13,8 +13,7 @@ const customerSchema = new Schema({
         return /^.{6,}$/.test(v)
       },
       message : '{VALUE} is not a valid phone number!\n Min 6 digit number'
-    },
-    required : [true, 'User phone number required']
+    }
   },
   create_at : {
     type : Date,

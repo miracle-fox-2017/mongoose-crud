@@ -1,6 +1,4 @@
-const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
-const url = "mongodb://localhost:27017/mongooseCRUD";
 const Books   = require('../models/bookModels')
 
 let createBook = function(req,res){

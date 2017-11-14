@@ -1,7 +1,5 @@
-const MongoClient = require('mongodb').MongoClient
-const ObjectId    = require('mongodb').ObjectId
-const url = 'mongodb://localhost:27017/mongooseCRUD'
-const Customers = require('../models/customerModels')
+const ObjectId   = require('mongodb').ObjectId
+const Customers  = require('../models/customerModels')
 
 const createCustomer = function(req,res){
   let newCustomer = Customers({

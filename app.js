@@ -13,17 +13,17 @@ app.use(bodyParser.json())
 // mongoose connect
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/mongooseCRUD')
-  .then(() =>  console.log('db connection succesful'))
-  .catch((err) => console.error(err));
+.then(() =>  console.log('db connection succesful'))
+.catch((err) => console.error(err));
 
 //router
-const index = require('./routes/index')
 const books = require('./routes/books')
 const customers = require('./routes/customers')
+const transactions = require('./routes/transactions')
 
-app.use('/', index)
-app.use('/books', books)
-app.use('/customers', customers)
+app.use('/api/books', books)
+app.use('/api/customers', customers)
+app.use('/api/transactions', transactions)
 
 app.listen(3000, function(err){
   if(err){
