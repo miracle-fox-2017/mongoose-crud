@@ -11,4 +11,7 @@ router.put('/:id', transactionsController.update)
 
 router.delete('/:id', transactionsController.deleteTransaction)
 
+//transactions by id
+router.get('/:id', transactionsController.getById)
+
 module.exports = router

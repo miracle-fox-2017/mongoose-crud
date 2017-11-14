@@ -66,10 +66,22 @@ let deleteTransaction = (req, res) => {
   })
 }
 
+let getById = (req, res) => {
+  Transaction.findById(req.params.id)
+  .populate('booklist')
+  .populate('member')
+  .exec()
+  .then(trans=>{
+    res.send(trans)
+  }).catch(err=>{
+    res.status(500).send(err)
+  })
+}
 
 module.exports = {
   getAll,
   create,
   update,
-  deleteTransaction
+  deleteTransaction,
+  getById
 };

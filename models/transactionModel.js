@@ -1,13 +1,20 @@
 const mongoose = require('mongoose').connect('mongodb://localhost:27017/booksstore')
+const Schema = mongoose.Schema
 
 const transactionSchema = mongoose.Schema({
-  member: String,
+  member: {
+    type: Schema.Types.ObjectId,
+    ref: 'Customer'
+  },
   days: Number,
   out_date: Date,
   due_date: Date,
   in_date: Date,
   fine: Number,
-  booklist: [],
+  booklist: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Book'
+  }],
   createdAt: {
     type: Date,
     default: Date.now()

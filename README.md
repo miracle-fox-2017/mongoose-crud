@@ -16,6 +16,7 @@ crud with mongoose odm
 | /api/transactions | POST | post new transaction |
 | /api/transactions/:id | PUT | update specific transaction |
 | /api/transactions/:id | DELETE | delete specific transaction |
+| /api/transactions/:id | GET | get specific transaction with populated book |
 
 
 ## Require parameters
@@ -40,10 +41,10 @@ crud with mongoose odm
 ### Transactions
 | Require | Type |
 |---------|------|
-| member | String/ObjectId |
+| member | ObjectId |
 | days | Number |
 | out_date | Date |
 | due_date | Date |
 | in_date | Date |
 | fine | Number |
-| booklist | [String,String,...] |
+| booklist | [ObjectId,ObjectId,...] |
