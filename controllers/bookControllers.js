@@ -19,6 +19,17 @@ let createBook = function(req,res){
   })
 }
 
+let findBook = function(req,res){
+  Books.find().then(function(data_Books){
+    res.status(200).send(data_Books)
+    console.log('SHow all Books Info')
+  }).catch(function(err){
+    res.status(500).send(err)
+    console.log(err)
+  })
+}
+
 module.exports = {
-  createBook
+  createBook,
+  findBook
 }
