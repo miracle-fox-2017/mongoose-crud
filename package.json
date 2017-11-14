@@ -1,0 +1,26 @@
+{
+  "name": "mongoose-crud",
+  "version": "1.0.0",
+  "description": "crud with mongoose odm",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomybudiman/mongoose-crud.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomybudiman/mongoose-crud/issues"
+  },
+  "homepage": "https://github.com/tomybudiman/mongoose-crud#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.2"
+  }
+}
