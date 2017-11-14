@@ -17,6 +17,7 @@ crud with mongoose odm
 | /api/transactions | POST | post new transaction |
 | /api/transactions/:id | PUT | update specific transaction |
 | /api/transactions/:id | DELETE | delete specific transaction |
+| /api/transactions/:id/book/:book_id | GET | add book to specific transaction id |
 
 
 ## Require parameters

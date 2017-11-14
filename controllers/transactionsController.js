@@ -82,10 +82,33 @@ let getById = (req, res) => {
   })
 }
 
+//add book to transaction
+let addBook = (req, res) => {
+  if(req.params.book_id){
+    Transaction.findById(req.params.id)
+    .then(trans=>{
+      trans.booklist.push(req.params.book_id)
+      Transaction.update({ _id: req.params.id }, trans)
+      .then(result=>{
+        res.send(result)
+      }).catch(err=>{
+        res.status(500).send(err)
+      })
+    }).catch(err=>{
+      res.status(500).send(err)
+    })
+  } else {
+    res.status(400).send({msg: "input error"})
+  }
+  
+
+}
+
 module.exports = {
   getAll,
   create,
   update,
   deleteTransaction,
-  getById
+  getById,
+  addBook
 };
