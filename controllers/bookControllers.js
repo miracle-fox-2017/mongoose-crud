@@ -10,7 +10,7 @@ let createBook = function(req,res){
     stock : req.body.stock
   })
   newBook.save().then(function(){
-    res.status(200).send('User Created')
+    res.status(201).send('User Created')
   }).catch(function(err){
     res.status(500).send(err)
     console.log(err)
@@ -39,7 +39,7 @@ let editBook = function(req,res){
     stock : req.body.stock
   }
   Books.findByIdAndUpdate(id, updateBook).then(function(){
-    res.status(200).send('1 Books document updated')
+    res.status(201).send('1 Books document updated')
     console.log('1 Books document updated')
   }).catch(function(err){
     res.status(500)
@@ -52,7 +52,7 @@ let destroyBook = function(req,res){
     _id : ObjectId(req.params.id)
   }
   Books.findByIdAndRemove(id).then(function(){
-    res.status(200).send('1 document deleted')
+    res.status(204).send('1 document deleted')
     console.log('1 document deleted')
   }).catch(function(err){
     res.status(500).send(err)

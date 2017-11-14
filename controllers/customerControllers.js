@@ -10,7 +10,7 @@ const createCustomer = function(req,res){
     phone : req.body.phone
   })
   newCustomer.save().then(function(){
-    res.status(200).send('1 Customer Created')
+    res.status(201).send('1 Customer Created')
   }).catch(function(err){
     res.status(500).send(err.errors.phone.message)
     console.log(err)
@@ -39,7 +39,7 @@ const editCustomers = function(req,res){
     phone : req.body.phone
   }
   Customers.findByIdAndUpdate(id,updateCustomers).then(function(){
-    res.status(200).send('1 Customers document updated')
+    res.status(201).send('1 Customers document updated')
     console.log('1 Customers document updated')
   }).catch(function(err){
     res.status(500).send(err)
@@ -52,7 +52,7 @@ const destroyCustomers = function(req,res){
     _id : ObjectId(req.params.id)
   }
   Customers.findByIdAndRemove(id).then(function(){
-    res.status(200).send('1 Customers document deleted')
+    res.status(204).send('1 Customers document deleted')
   }).catch(function(err){
     res.status(500).send(err)
     console.log('1 Customers document deleted')

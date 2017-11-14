@@ -13,8 +13,9 @@ const createTransactions = function(req,res){
     due_date : dueDate,
     booklist : req.body.booklist
   })
+
   newTransactions.save().then(function(){
-    res.status(200).send('1 Transaction Created')
+    res.status(201).send('1 Transaction Created')
     console.log('1 Transaction Created')
   }).catch(function(err){
     res.status(500).send(err)
@@ -23,12 +24,9 @@ const createTransactions = function(req,res){
 }
 
 const findAllTransaction = function(req,res){
-  Transactions.find().then(function(data_Transactions){
+  Transactions.find().populate('booklist').populate('member').exec(function(err,data_Transactions){
+    if(err) throw err
     res.status(200).send(data_Transactions)
-    console.log('Show All Transactions')
-  }).catch(function(err){
-    res.status(500).send(err)
-    console.log(err)
   })
 }
 
@@ -52,11 +50,11 @@ const updateTransactions = function(req,res){
     data_Transactions.in_date = new Date()
     data_Transactions.fine = sumFine
     data_Transactions.save().then(function(){
-      res.status(200).send('1 Transaction Document Updated')
+      res.status(201).send('1 Transaction Document Updated')
     })
      
   }).catch(function(err){
-    res.status(200).send(err)
+    res.status(500).send(err)
     console.log(err)
   })
 }
@@ -66,10 +64,10 @@ const destroyTransaction = function(req,res){
     _id : ObjectId(req.params.id)
   }
   Transactions.findByIdAndRemove(id).then(function(){
-    res.status(200).send('1 Transaction Deleted')
+    res.status(204).send('1 Transaction Deleted')
     console.log('1 Transaction Deleted')
   }).catch(function(err){
-    res.status(200).send(err)
+    res.status(500).send(err)
     console.log(err)
   })
 }
