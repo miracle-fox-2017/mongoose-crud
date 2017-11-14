@@ -7,19 +7,16 @@ const transactionSchema=({
         ref:"Customer"
     },
     days: Number,
-    out_date:{
-        type: Date,
-        default: Date.now()
-    },
-    due_date:{
-        type: Date,
-        default: Date.now()
-    },
+    out_date: Date,
+    due_date: Date,
     in_date:{
         type: Date,
-        default: Date.now()
+        default: null
     },
-    fine: Number,
+    fine:{
+        type: Number,
+        default: null
+    },
     booklist: [{
         type: Schema.Types.ObjectId,
         ref:"Book"

@@ -13,4 +13,4 @@
 | /api/customers/edit/:id | PUT | Edit customer identity |
 | /api/transaction/ | GET | Retrieve all transaction history |
 | /api/transaction/ | POST | Add new transaction |
-| /api/transaction/add-booklist | POST | Add new book to booklist |
+| /api/transaction/return | PUT | Return book to library and check ticket |

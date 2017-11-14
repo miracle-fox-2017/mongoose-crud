@@ -13,7 +13,15 @@ const getAll=(req,res,next)=>{
 }
 
 const add=(req,res,next)=>{
-    const transaction=new Transaction(req.body);
+    const fine=2000;
+    const currentDate=new Date();
+    const transaction=new Transaction({
+        member:req.body.member,
+        days:req.body.days,
+        out_date:new Date(),
+        due_date:currentDate.setDate(currentDate.getDate() + 7),
+        booklist:req.body.booklist.split(",")
+    });
     transaction.save().then((respond)=>{
         res.send(respond)
     }).catch((err)=>{
@@ -21,39 +29,36 @@ const add=(req,res,next)=>{
     });
 }
 
-// const remove=(req,res,next)=>{
-//     const query={
-//         "_id":ObjectId(req.params.id)
-//     }
-//     Transaction.deleteOne(query,(err,respond)=>{
-//         if(err){
-//             res.send(err);
-//         }else{
-//             res.send(respond);
-//         }
-//     });
-// }
-
-const addBooklist=(req,res,next)=>{
+const returnBook=(req,res,next)=>{
     const query={
         "_id":ObjectId(req.body.transaction_id)
     }
-    Transaction.findOne(query,function(err,value){
-        let booklist=value.booklist;
-        booklist.push(req.body.book_id);
-        Transaction.updateOne(query,{booklist:booklist},(err,respond)=>{
-            if(err){
-                res.send(err);
-            }else{
-                res.send(respond);
+    Transaction.findOne(query,(err,value)=>{
+        if(value.in_date == null){
+            const kembalikan=(denda)=>{
+                Transaction.update(query,{
+                    fine:denda,
+                    in_date:new Date()
+                }).then((respond)=>{
+                    res.send(respond);
+                }).catch((err)=>{
+                    res.send(err);
+                });
             }
-        });
+            if(new Date() > value.due_date){
+                const denda=Math.abs(new Date().getDate() - value.due_date.getDate()) * 2000;
+                kembalikan(denda);
+            }else{
+                kembalikan(0);
+            }
+        }else{
+            res.send({status:false,msg:"Buku sudah dikembalikan!"});
+        }
     });
 }
 
 module.exports={
     getAll,
     add,
-    remove,
-    addBooklist
+    returnBook
 };
