@@ -7,7 +7,10 @@ var customerSchema = new Schema({
 	memberid : String,
 	address  : String,
 	zipcode  : String,
-	phone    : String,
+	phone    : {
+		type : String,
+		minlength : 6
+	},
 	createdAt: Date,
 	updatedAt: Date
 })
