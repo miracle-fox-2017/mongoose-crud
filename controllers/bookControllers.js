@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
-const url = "mongodb://localhost:27017/library";
+const url = "mongodb://localhost:27017/mongooseCRUD";
 const Books   = require('../models/bookModels')
 
 let createBook = function(req,res){
@@ -41,8 +41,8 @@ let editBook = function(req,res){
     stock : req.body.stock
   }
   Books.findByIdAndUpdate(id, updateBook).then(function(){
-    res.status(200).send('1 document updated')
-    console.log('1 document updated')
+    res.status(200).send('1 Books document updated')
+    console.log('1 Books document updated')
   }).catch(function(err){
     res.status(500)
     console.log(err)

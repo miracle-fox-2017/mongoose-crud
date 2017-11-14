@@ -19,9 +19,11 @@ mongoose.connect('mongodb://localhost/mongooseCRUD')
 //router
 const index = require('./routes/index')
 const books = require('./routes/books')
+const customers = require('./routes/customers')
 
 app.use('/', index)
 app.use('/books', books)
+app.use('/customers', customers)
 
 app.listen(3000, function(err){
   if(err){
