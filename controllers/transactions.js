@@ -1,4 +1,5 @@
 const Transaction = require('../models/transactionModel')
+const fineCount = require('../helpers/fineCount')
 
 let findAll = (req, res) => {
   Transaction.find()
@@ -23,13 +24,7 @@ let create = (req, res) => {
   transaction.due_date = dueDate
 
   // hitung denda
-  if(transaction.in_date > transaction.due_date){
-    var timeDiff = Math.abs(transaction.in_date.getTime() - transaction.due_date.getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    transaction.fine = diffDays*5000
-  }else{
-    transaction.fine = 0
-  }
+  transaction.fine = fineCount(transaction.in_date, transaction.due_date)
 
   transaction.save()
   .then(transaction => {
@@ -56,13 +51,7 @@ let update = (req, res) => {
     }
 
     // hitung denda
-    if(transaction.in_date > transaction.due_date){
-      var timeDiff = Math.abs(transaction.in_date.getTime() - transaction.due_date.getTime());
-      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      transaction.fine = diffDays*5000
-    }else{
-      transaction.fine = 0
-    }
+    transaction.fine = fineCount(transaction.in_date, transaction.due_date)
 
     // save update data
     transaction.save()
