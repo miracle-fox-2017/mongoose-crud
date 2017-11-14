@@ -5,7 +5,7 @@ let getAllCustomer = (req, res) => {
     res.send(dataCustomer);
   })
   .catch(err => {
-    res.send(err);
+    res.status(404).send(err);
   });
 }
 
@@ -26,7 +26,7 @@ let addCustomer = (req, res) => {
     res.send(dataCustomer);
   })
   .catch(err => {
-    res.send(err);
+    res.send(err.errors.phone.message);
   });
 }
 
@@ -48,7 +48,7 @@ let editCustomer = (req, res) => {
       res.send('customer has been updated');
     })
     .catch(err => {
-      res.send(err);
+      res.send(err.errors.phone.message);
     });
   }
 

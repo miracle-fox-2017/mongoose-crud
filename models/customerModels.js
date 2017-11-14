@@ -8,7 +8,7 @@ var customerSchema = new Schema({
   memberid: String,
   address: String,
   zipcode: String,
-  phone: { type: String, minlength: 6, message: '{VALUE} is not a valid phone number!' },
+  phone: { type: String, minlength: [6, 'is not a valid phone number!'] },
   created_at: Date,
   updated_at: Date
 });

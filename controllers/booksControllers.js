@@ -5,7 +5,7 @@ let getAllBook = (req, res) => {
     res.send(dataBook);
   })
   .catch(err => {
-    res.send(err);
+    res.status(404).send(err);
   });
 }
 
