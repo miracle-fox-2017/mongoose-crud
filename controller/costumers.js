@@ -4,7 +4,7 @@ let message = ''
 
 const getAllCostumers = (req, res) => {
   Costumer.find().then(costumers => {
-    res.send(costumers)
+    res.status(200).send(costumers)
   })
   .catch(err => {
     res.status(500).send({err:err});
@@ -13,7 +13,6 @@ const getAllCostumers = (req, res) => {
 
 
 const create = (req, res) => {
-  console.log('masuk sini');
   Costumer.create(
     {
       name     : req.body.name,
@@ -24,7 +23,7 @@ const create = (req, res) => {
     }
   ).then(costumer => {
     message = 'succes create one data'
-    res.send({costumer:costumer, msg:message})
+    res.status(200).send({costumer:costumer, msg:message})
   })
   .catch(err => {
     res.status(500).send({err:err})
@@ -33,7 +32,7 @@ const create = (req, res) => {
 
 const findOne = (req, res) => {
   Costumer.find({_id : req.params.id}).then(costumer => {
-    res.send({costumer:costumer})
+    res.status(200).send({costumer:costumer})
   })
   .catch(err => {
     res.status(500).send({err:err})
@@ -52,7 +51,7 @@ const findByIdAndUpdate = (req, res) => {
   })
   .then(costumer => {
     message = 'succes adding one data'
-    res.send({costumer:costumer,msg:message})
+    res.status(200).send({costumer:costumer,msg:message})
   })
   .catch(err => {
     console.log(err);
@@ -61,12 +60,11 @@ const findByIdAndUpdate = (req, res) => {
 }
 
 const findByIdAndRemove = (req, res) => {
-  console.log('masuk sini remove');
   Costumer.findByIdAndRemove({_id : req.params.id})
   .then(costumer => {
     message = 'succes removing one data'
     console.log(costumer);
-    res.send({costumer:costumer, msg:message})
+    res.status(200).send({costumer:costumer, msg:message})
   })
   .catch(err => {
     console.log(err);

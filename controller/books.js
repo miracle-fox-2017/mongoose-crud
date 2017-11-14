@@ -4,7 +4,7 @@ let message = ''
 
 const getAllBooks = (req, res) => {
   Book.find().then(books => {
-    res.send(books)
+    res.status(200).send(books)
   })
   .catch(err => {
     res.status(500).send({err:err});
@@ -23,7 +23,7 @@ const create = (req, res) => {
     }
   ).then(book => {
     message = 'succes create one data'
-    res.send({book:book, msg:message})
+    res.status(200).send({book:book, msg:message})
   })
   .catch(err => {
     res.status(500).send({err:err})
@@ -32,7 +32,7 @@ const create = (req, res) => {
 
 const findOne = (req, res) => {
   Book.find({_id : req.params.id}).then(book => {
-    res.send({book:book})
+    res.status(200).send({book:book})
   })
   .catch(err => {
     res.status(500).send({err:err})
@@ -51,7 +51,7 @@ const findByIdAndUpdate = (req, res) => {
   })
   .then(book => {
     message = 'succes adding one data'
-    res.send({book:book,msg:message})
+    res.status(200).send({book:book,msg:message})
   })
   .catch(err => {
     console.log(err);
@@ -65,7 +65,7 @@ const findByIdAndRemove = (req, res) => {
   .then(book => {
     message = 'succes removing one data'
     console.log(book);
-    res.send({book:book, msg:message})
+    res.status(200).send({book:book, msg:message})
   })
   .catch(err => {
     console.log(err);

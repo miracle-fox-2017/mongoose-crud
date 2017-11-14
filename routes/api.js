@@ -51,6 +51,7 @@ router.get('/transactions/:id', transactionController.findOne)
 // find data with specific id and update
 router.put('/transactions/:id', transactionController.update)
 
+// find data with specific id and update
 router.post('/transactions', transactionController.create)
 
 // find data with specific id and delete

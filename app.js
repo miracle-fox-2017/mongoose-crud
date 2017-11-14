@@ -2,6 +2,7 @@ const express = require('express');
 const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const morgan = require('morgan')
 
 //connection to database
 mongoose.connect('mongodb://localhost/mongooseCrud')
@@ -16,6 +17,8 @@ mongoose.connection.once('open', function(){
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
+
+app.use(morgan('dev'))
 
 
 
