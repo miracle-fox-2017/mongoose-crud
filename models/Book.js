@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/Books')
 
 var bookSchema = mongoose.Schema({
   isbn:  String,
   title: String,
-  autor: String,
+  author: String,
   category: String,
   stock: Number
 });
