@@ -24,16 +24,19 @@ let create = (req, res) => {
 let update = (req, res) => {
   let id = {_id: ObjectId(req.params.id)}
 
-  let obj = {
-    name:  req.body.name,
-    memberId: req.body.memberId,
-    address: req.body.address,
-    zipcode: req.body.zipcode,
-    phone: req.body.phone
-  }
+  Customer.findOne(id)
+  .then(customer => {
+    customer.name = req.body.name || customer.name,
+    customer.memberId = req.body.memberId || customer.memberId,
+    customer.address = req.body.address || customer.address,
+    customer.zipcode = req.body.zipcode || customer.zipcode,
+    customer.phone = req.body.phone || customer.phone
 
-  Customer.updateOne(id, obj)
-  .then(() => res.send('success update document'))
+    customer.save()
+    .then(customer => res.send(customer))
+    .catch(err => res.status(500).send(err))
+    // res.send('success update document')
+  })
   .catch(err => res.status(500).send(err))
 }
 

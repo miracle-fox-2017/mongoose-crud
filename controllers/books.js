@@ -23,17 +23,18 @@ let create = (req, res) => {
 
 let update = (req, res) => {
   let id = {_id: ObjectId(req.params.id)}
+  Book.findOne(id)
+  .then(book => {
+    book.isbn = req.body.isbn || book.isbn
+    book.title = req.body.title || book.title
+    book.author = req.body.author || book.author
+    book.category = req.body.category || book.category
+    book.stock = req.body.stock || book.stock
 
-  let obj = {
-    isbn : req.body.isbn,
-    title : req.body.title,
-    author : req.body.author,
-    category : req.body.category,
-    stock : req.body.stock
-  }
-
-  Book.updateOne(id, { $set: obj })
-  .then(() => res.send('success update document'))
+    book.save()
+    .then(book => res.send(book))
+    .catch(err => res.status(500).send(err))
+  })
   .catch(err => res.status(500).send(err))
 }
 

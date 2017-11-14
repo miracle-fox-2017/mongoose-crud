@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/library');
 const Schema = mongoose.Schema;
 
 var transactionSchema = mongoose.Schema({
