@@ -2,6 +2,7 @@ const express = require('express')
 const router  = express.Router()
 const bookController = require('../controller/books')
 const costumerController = require('../controller/costumers')
+const transactionController = require('../controller/transactions')
 
 
 
@@ -38,6 +39,25 @@ router.put('/costumers/:id', costumerController.findByIdAndUpdate)
 
 // find data with specific id and delete
 router.delete('/costumers/:id', costumerController.findByIdAndRemove)
+
+
+// ====================== Transaction  ===================== //
+// get all data
+router.get('/transactions', transactionController.getAllTransactions)
+
+// find data with specific id
+router.get('/transactions/:id', transactionController.findOne)
+
+// find data with specific id and update
+router.put('/transactions/:id', transactionController.update)
+
+router.post('/transactions', transactionController.create)
+
+// find data with specific id and delete
+router.delete('/transactions/:id', transactionController.findByIdAndRemove)
+
+
+
 
 
 
