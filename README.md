@@ -12,11 +12,11 @@ crud with mongoose odm
 | /api/customers | POST | post new customer |
 | /api/customers/:id | PUT | update specific customer |
 | /api/customers/:id | DELETE | delete specific book |
-| /api/transactions | GET | get all transactions |
+| /api/transactions | GET | get all transactions with populated book and customer |
+| /api/transactions/:id | GET | get specific transaction with populated book and customer|
 | /api/transactions | POST | post new transaction |
 | /api/transactions/:id | PUT | update specific transaction |
 | /api/transactions/:id | DELETE | delete specific transaction |
-| /api/transactions/:id | GET | get specific transaction with populated book |
 
 
 ## Require parameters

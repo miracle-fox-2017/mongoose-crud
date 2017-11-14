@@ -27,6 +27,9 @@ let create = (req, res) => {
 //read
 let getAll = (req, res) => {
   Transaction.find()
+  .populate('booklist')
+  .populate('member')
+  .exec()
   .then(result=>{
     res.send(result)
   }).catch(err=>{
@@ -66,6 +69,7 @@ let deleteTransaction = (req, res) => {
   })
 }
 
+//populated by id
 let getById = (req, res) => {
   Transaction.findById(req.params.id)
   .populate('booklist')
