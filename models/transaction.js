@@ -3,12 +3,18 @@ const mongoose = require('mongoose').connect(url);
 const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema({
-	name: String,
-	title:  String,
-	author:   String,
-	category: String,
-	stock: Number,
-	createdAt: { type: Date, default: Date.now }
+	member: Schema.Types.ObjectId,
+	days:  Number,	
+	out_date: { type: Date, default: Date.now },
+	due_date: { type: Date, default: Date.now },
+	in_date: { type: Date, default: Date.now },
+	fine: Number,
+	booklist: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'Book'
+		}
+	],
 });
 
 const TransactionModel = mongoose.model('Transaction', transactionSchema);

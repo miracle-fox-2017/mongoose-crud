@@ -30,35 +30,23 @@ const createBook = (req, res) => {
 }
 
 const updateBook = (req, res) => {
-	BookModel.findOne(
+	BookModel.findOneAndUpdate(
+		{ _id : ObjectId(req.params.bookId) }, 
 		{
-			_id : ObjectId(req.params.bookId)
-		}, (err, book) => {
+			title: req.body.title || book.title,
+			isbn:  req.body.isbn || book.isbn,
+			author: req.body.author || book.author,
+			category:  req.body.category || book.category,
+			stock: req.body.stock || book.stock,
+		}, {upsert:true}, 
+		function(err, book){
 			if (err) {
 				res.status(500).send({message: err.message});
-			}
-
-			if (book) {
-				let bookUpdate = new BookModel({
-					title: req.body.title || book.title,
-					isbn:  req.body.isbn || book.isbn,
-					author: req.body.author || book.author,
-					category:  req.body.category || book.category,
-					stock: req.body.stock || book.stock,
-				});
-
-				bookUpdate.save((err, updatedBook) => {  
-					if (err) {
-						res.status(500).send({message: err.message});
-					}
-
-					res.status(200).send({book: updatedBook, message: 'Book Updated'});
-				});
 			} else {
-				res.status(500).send({message: err.message});
+				res.status(200).send({book: book, message: 'Book Updated'});
 			}
-	})
-
+		}
+	);
 }
 
 const deleteBook = (req, res) => {
