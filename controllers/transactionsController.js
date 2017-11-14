@@ -41,9 +41,8 @@ let updateTransactionsById = function(req,res){
       _id: req.params.id
     }
   ).then(function(dataTransactions){
-    let date = new Date(dataTransactions.out_date)
+    let date = new Date(dataTransactions.due_date)
     let returnDate = new Date(req.body.in_date)
-    let dueDate = date.setDate(date.getDate() + parseInt(req.body.days))
     let sumFine = 1000 * (returnDate.getDate() - date.getDate())
     if(sumFine < 0){
       sumFine = 0
@@ -51,7 +50,6 @@ let updateTransactionsById = function(req,res){
     dataTransactions.fine = sumFine;
     dataTransactions.days = req.body.days;
     dataTransactions.in_date = new Date(req.body.in_date);
-    dataTransactions.due_date = dueDate;
     dataTransactions.save().then(function(dataTransactions){
       res.send(dataTransactions)
     }).catch(function(err){
