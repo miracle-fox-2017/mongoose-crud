@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const transactionSchema = new Schema({
     member: {
-        type: Schema.Types.ObjectId, ref: 'Customer'
+        type: Schema.Types.ObjectId, 
+        ref: 'Customer'
     },
     days: Number,
     out_date: Date,
@@ -12,7 +13,8 @@ const transactionSchema = new Schema({
     in_date: Date,
     fine: Number,
     booklist: [{
-        type: Schema.Types.ObjectId, ref: 'Book'
+        type: Schema.Types.ObjectId, 
+        ref: 'Book'
     }]
 
 })

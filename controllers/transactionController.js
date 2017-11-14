@@ -24,7 +24,28 @@ const findTransactionById = (req, res) => {
 }
 
 const updateTransactionById = (req, res) => {
+    let due_date = new Date()
+    Transaction.findById(req.params.id).then((transaction) => {
+        transaction.days = Number(req.body.days)
+        transaction.in_date = new Date(req.body.in_date)
+        transaction.due_date = due_date.setDate(transaction.out_date.getDate() + Number(req.body.days))
 
+        if ((transaction.in_date.getTime() - (transaction.due_date.getTime() + transaction.days)) > 0) {
+            let differentTime = Math.abs((transaction.in_date.getTime() - (transaction.due_date.getTime() + transaction.days)))
+            denda = Math.ceil(differentTime / (1000 * 3600 * 24)) * 5000
+        } else {
+            denda = 0
+        }
+        transaction.fine = denda
+
+        transaction.save()
+            .then(() => {
+                res.send("1 document successfully updated")
+            })
+            .catch((reason) => {
+                res.send(reason)
+            })
+    })
 }
 
 const insertIntoTransaction = (req, res) => {
@@ -64,5 +85,6 @@ const insertIntoTransaction = (req, res) => {
 module.exports = {
     insertIntoTransaction,
     findTransactions,
-    findTransactionById
+    findTransactionById,
+    updateTransactionById
 }

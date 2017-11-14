@@ -4,7 +4,7 @@ const transactionController = require('../controllers/transactionController')
 /* GET users listing. */
 router.get('/', transactionController.findTransactions);
 router.get('/:id', transactionController.findTransactionById)
-// router.put('/:id')
+router.put('/:id', transactionController.updateTransactionById)
 router.post('/', transactionController.insertIntoTransaction)
 
 module.exports = router;
