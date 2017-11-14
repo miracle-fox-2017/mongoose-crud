@@ -2,13 +2,12 @@ const TransactionModel = require('../models/transaction');
 const ObjectId = require('mongodb').ObjectID;
 
 const findTransaction = (req, res) => {
-	TransactionModel.find((err, transaction) => {
-		if (err) {
-			res.status(500).send({message: err.message});
-		}
-
-		res.status(200).send(transaction);
-	});
+	TransactionModel.find().populate('booklist').populate('customer').exec()
+		.then((datas) => {
+				res.status(200).send(datas);
+			}).catch(err => {
+				res.status(500).send({message: err});
+			})
 }
 
 const createTransaction = (req, res) => {
@@ -20,8 +19,8 @@ const createTransaction = (req, res) => {
 		days:  +req.body.days,	
 		out_date: req.body.out_date,
 		due_date: dueDate,
-		in_date: req.body.in_date,
-		fine: req.body.fine,
+		in_date: null,
+		fine: null,
 		booklist: req.body.booklist
 	});
 
@@ -39,7 +38,13 @@ const updateTransaction = (req, res) => {
 			if (err) {
 				res.status(500).send({message: err.message});
 			} else {
-				transaction.booklist = req.body.booklist;
+				
+				var due_date = new Date(transaction.due_date);
+				var in_date = new Date("2017-11-25T11:54:28.705Z");
+				var bookFine = (in_date.getDate() - due_date.getDate()) * 100000;
+
+				transaction.in_date = in_date;
+				transaction.fine = bookFine;
 
 				transaction.save((err, transactionUpdated) => {
 					if (err) {
