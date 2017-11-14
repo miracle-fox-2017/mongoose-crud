@@ -7,8 +7,8 @@ const transactionSchema = new Schema({
 	days:  Number,	
 	out_date: { type: Date, default: Date.now },
 	due_date: { type: Date, default: Date.now },
-	in_date: { type: Date, default: Date.now },
-	fine: Number,
+	in_date: { type: Date, default: null },
+	fine: { type: Number, default: null },
 	booklist: [
 		{
 			type: Schema.Types.ObjectId,

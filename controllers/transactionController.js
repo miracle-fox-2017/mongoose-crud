@@ -40,7 +40,7 @@ const updateTransaction = (req, res) => {
 			} else {
 				
 				var due_date = new Date(transaction.due_date);
-				var in_date = new Date("2017-11-25T11:54:28.705Z");
+				var in_date = new Date();
 				var bookFine = (in_date.getDate() - due_date.getDate()) * 100000;
 
 				transaction.in_date = in_date;
