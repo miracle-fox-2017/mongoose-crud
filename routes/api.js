@@ -1,6 +1,8 @@
 const express = require('express')
 const router  = express.Router()
 const bookController = require('../controller/books')
+const costumerController = require('../controller/costumers')
+
 
 
 // ====================== Books ===================== //
@@ -22,7 +24,24 @@ router.delete('/books/:id', bookController.findByIdAndRemove)
 
 
 // ====================== Costumers  ===================== //
-//router.get('/costumers', )
+// get all data
+router.get('/costumers', costumerController.getAllCostumers)
+
+// find data with specific id
+router.get('/costumers/:id', costumerController.findOne)
+
+// post data to db
+router.post('/costumers', costumerController.create)
+
+// find data with specific id and update
+router.put('/costumers/:id', costumerController.findByIdAndUpdate)
+
+// find data with specific id and delete
+router.delete('/costumers/:id', costumerController.findByIdAndRemove)
+
+
+
+
 
 
 module.exports = router
