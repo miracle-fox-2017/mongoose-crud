@@ -11,13 +11,13 @@ const findTransaction = (req, res) => {
 }
 
 const createTransaction = (req, res) => {
-	let dueDate = new Date(req.body.out_date);
+	let dueDate = new Date();
 	dueDate.setDate(dueDate.getDate() + +req.body.days)
 
 	let transaction = new TransactionModel({
 		member: req.body.member,
 		days:  +req.body.days,	
-		out_date: req.body.out_date,
+		out_date: new Date(),
 		due_date: dueDate,
 		in_date: null,
 		fine: null,
@@ -38,7 +38,7 @@ const updateTransaction = (req, res) => {
 			if (err) {
 				res.status(500).send({message: err.message});
 			} else {
-				
+
 				var due_date = new Date(transaction.due_date);
 				var in_date = new Date();
 				var bookFine = (in_date.getDate() - due_date.getDate()) * 100000;
