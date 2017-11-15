@@ -27,7 +27,7 @@ const createOne = (req, res) => {
 
 const editOne = (req, res) => {
   transactionModel.findOne({_id: req.params.id}).then((hasil) => {
-    hasil.in_date = new Date(2017, 11, 21)
+    hasil.in_date = new Date()
 
     if(hasil.in_date.getTime() > hasil.due_date.getTime()) {
       hasil.fine = (hasil.in_date.getDate() - hasil.due_date.getDate()) * 1000
