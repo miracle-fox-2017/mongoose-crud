@@ -8,12 +8,7 @@ var customerSchema = mongoose.Schema({
   zipcode: String,
   phone: {
     type: String,
-    // validate: {
-      // validator: function(v) {
-        // return /\d{3}-\d{3}-\d{4}/.test(v);
-      // },
-      // message: '{VALUE} is not a valid phone number!'
-    // }
+    minlength: 6
   }
 });
 
