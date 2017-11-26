@@ -5,6 +5,8 @@ const Transaction = require('../models/transactionModel')
 
 const findTransactions = (req, res) => {
     Transaction.find()
+        .populate('booklist')
+        .populate('member')
         .then((dataTransactions) => {
             res.send(dataTransactions)
         })
